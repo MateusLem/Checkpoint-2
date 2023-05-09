@@ -62,6 +62,7 @@ public class ProfileController {
 
 				System.out.println("===== ERROR =====");
 				System.out.println("Insufficient parameters");
+
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
 			}
@@ -98,6 +99,7 @@ public class ProfileController {
 			profileDao.saveProfile(profile);
 
 			return ResponseEntity.ok("Profile successfully updated!");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
