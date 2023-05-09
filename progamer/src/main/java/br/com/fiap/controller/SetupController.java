@@ -58,7 +58,7 @@ public class SetupController {
 		Setup setup = new Setup();
 		try {
 			if (setupRequest.getName() == null || setupRequest.getDescription() == null || setupRequest.getPrice() == 0
-					|| setupRequest.getFile() == null) {
+					|| setupRequest.getSetupFile() == null) {
 
 				System.out.println("===== ERROR =====");
 				System.out.println("Parâmetros insuficientes");
@@ -69,7 +69,7 @@ public class SetupController {
 			setup.setName(setupRequest.getName());
 			setup.setDescription(setupRequest.getDescription());
 			setup.setPrice(setupRequest.getPrice());
-			setup.setFile(setupRequest.getFile());
+			setup.setSetupFile(setupRequest.getSetupFile());
 
 			setupDao.salvar(setup);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -91,7 +91,7 @@ public class SetupController {
 			setup.setName(setupRequest.getName());
 			setup.setDescription(setupRequest.getDescription());
 			setup.setPrice(setupRequest.getPrice());
-			setup.setFile(setupRequest.getFile());
+			setup.setSetupFile(setupRequest.getSetupFile());
 
 			setupDao.salvar(setup);
 
@@ -118,8 +118,8 @@ public class SetupController {
 				setup.setDescription(setupRequest.getDescription());
 			if (setupRequest.getPrice() > 0)
 				setup.setPrice(setupRequest.getPrice());
-			if (setupRequest.getFile() != null)
-				setup.setFile(setupRequest.getFile());
+			if (setupRequest.getSetupFile() != null)
+				setup.setSetupFile(setupRequest.getSetupFile());
 
 			setupDao.salvar(setup);
 

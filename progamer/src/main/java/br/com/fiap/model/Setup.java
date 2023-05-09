@@ -13,13 +13,13 @@ public class Setup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String name;
 	private String description;
-	private double price;
-	private String file;
+	private Long price;
+	private String setupFile;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(long id) {
@@ -37,10 +37,10 @@ public class Setup {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public double getPrice() {
+	public Long getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	
@@ -48,11 +48,11 @@ public class Setup {
 	public String toString() {
 		return "Setup [name=" + name + ", description=" + description + ", price=" + price + "]";
 	}
-	public String getFile() {
-		return file;
+	public String getSetupFile() {
+		return setupFile;
 	}
-	public void setFile(String file) {
-		this.file = file;
+	public void setSetupFile(String setupFile) {
+		this.setupFile = setupFile;
 	}
 	
 }

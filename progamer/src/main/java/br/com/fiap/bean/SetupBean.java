@@ -25,7 +25,7 @@ public class SetupBean {
 	
     private Setup selectedSetup;
 
-    private UploadedFile file;
+    private UploadedFile setupFile;
     
 	public Setup getSetup() {
 		return setup;
@@ -42,8 +42,8 @@ public class SetupBean {
 		
 		if(setup.getName()!="" && setup.getDescription()!="") {
 			
-			upload.salvarArquivo(getFile());
-			setup.setFile(getFile().getFileName());
+			upload.salvarArquivo(getSetupFile());
+			setup.setSetupFile(getSetupFile().getFileName());
 			
 			setupDao.salvar(setup);
 			this.setup = new Setup();
@@ -65,11 +65,11 @@ public class SetupBean {
 		this.selectedSetup = selectedSetup;
 	}
 
-	public UploadedFile getFile() {
-		return file;
+	public UploadedFile getSetupFile() {
+		return setupFile;
 	}
 
-	public void setFile(UploadedFile file) {
-		this.file = file;
+	public void setSetupFile(UploadedFile setupFile) {
+		this.setupFile = setupFile;
 	}
 }
