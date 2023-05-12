@@ -15,82 +15,116 @@
 			<ui:include src="/templates/menu.xhtml" />
 		</ui:insert>
 	</div>
-	<br />
-	<p:panel>
-		<div class="card">
-			<h:form id="form">
-				<p:growl id="growl" showDetail="true"/>
+	<br/>
+	<div id="body">
+		
+		<h:form id="form">
+
+			<p:growl id="messages" showDetail="true"/>
+
+			<p:tooltip for="name" value="Inform your name and surname" position="top"/>
+			<p:tooltip for="userProfile" value="Choose this option if you are a common user" position="top"/>
+			<p:tooltip for="administratorProfile" value="Choose this option if you are an administrator" position="top"/>
+			<p:tooltip for="email" value="Inform your email" position="top"/>
+			<p:tooltip for="pswd1" value="Inform your password" position="top"/>
+			<p:tooltip for="pswd2" value="Confirm your password" position="top"/>
 
 
-				<p:toolbar>
-					<p:toolbarGroup>
-						<p:commandButton value="New" icon="pi pi-plus"
-							update=":dialogs:manage-product-content"
-							oncomplete="PF('manageProductDialog').show()"
-							styleClass="ui-button-success" style="margin-right: .5rem">
-							<p:resetInput target=":dialogs:manage-product-content" />
-						</p:commandButton>
-					</p:toolbarGroup>
-				</p:toolbar>
+			<p:dialog header="New Profile" widgetVar="newProfile" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+				<p:panel id="newProfilePanel">
+					
+					<h:panelGrid columns="2" cellpadding="4">
+						<h:outputText value="Name *" />
+						<p:inputText id="name" value="#{profileBean.profileModel.name}" required="true" 
+						requiredMessage="Name is required!" redisplay="true" validatorMessage="Name must be a maximum of 100 characters">
+							<f:validateLength maximum="100"/>
+						</p:inputText>
+						
+						
 
-				<p:dataTable id="profileTable" var="profile"
-					value="#{profileBean.findAll()}">
-					<p:column headerText="Name">
-						#{profile.name}
-					</p:column>
-					<p:column headerText="Email">
-						#{profile.email}
-					</p:column>
-					<p:column headerText="Profile">
-						#{profile.profile}
-					</p:column>
-				</p:dataTable>
-			</h:form>
+						<h:outputText value="Profile *" />
+						<p:selectOneRadio id="profile" value="#{profileBean.profileModel.profile}" redisplay="true" unselectable="true" required="true" 
+						requiredMessage="Profile is required!">
+							<f:selectItem id="userProfile" itemLabel="User" itemValue="User"/>
+							<f:selectItem id="administratorProfile" itemLabel="Administrator" itemValue="Administrator"/>
+						</p:selectOneRadio>
+						
 
-			<h:form id="dialogs">
-				<p:dialog header="New Profile" showEffect="fade" modal="true"
-					widgetVar="manageProductDialog" responsive="true">
-					<p:messages id="msg" showDetail="false" closable="true">
-						<p:autoUpdate />
-					</p:messages>
+						<h:outputText value="Email *" />
+						<p:inputText id="email" value="#{profileBean.profileModel.email}" required="true" redisplay="true" requiredMessage="Email is required!" validatorMessage="Invalid email format">
+							<f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>	
+						</p:inputText>
+						
+						
+						
+						<p:outputLabel for="pswd1" styleClass="col-fixed" value="Password"/>
+						<p:password id="pswd1" value="#{profileBean.profileModel.passwordHash}" match="pswd2" label="Password 1" 
+						required="true" toggleMask="true" redisplay="true" requiredMessage="Password is required!" validatorMessage="Password doesn't match!"/>
+						
+						
+						
+						<p:outputLabel for="pswd2" styleClass="col-fixed" value="Confirm Password"/>
+						<p:password id="pswd2" redisplay="true" value="#{profileBean.profileModel.passwordHash}" label="Password 2" required="true" requiredMessage="Confirm your password is required!" />
+						
 
-					<p:outputPanel id="manage-product-content" class="ui-fluid">
-						<p:outputPanel>
-							<div class="field">
-								<p:outputLabel for="name">Name</p:outputLabel>
-								<p:inputText id="name" value="#{profileBean.profile.name}"
-									required="true" requiredMessage="Name é obrigatório" />
-							</div>
-							<div class="field">
-								<p:outputLabel for="email">Email</p:outputLabel>
-								<p:inputText id="email" value="#{profileBean.profile.email}"
-									required="true" requiredMessage="Email é obrigatório" />
-							</div>
-							<div class="field">
-								<p:outputLabel for="profile">Profile</p:outputLabel>
-								<p:selectOneRadio id="profile"
-									value="#{profileBean.profile.profile}" layout="responsive"
-									columns="2" required="true"
-									requiredMessage="Profile é obrigatório">
-									<f:selectItem itemLabel="User" itemValue="User" />
-									<f:selectItem itemLabel="Admin" itemValue="Admin" />
-								</p:selectOneRadio>
-							</div>
-							<div class="field">
-								<p:outputLabel for="password">Password</p:outputLabel>
-								<p:password id="password"
-									value="#{profileBean.profile.password}" required="true"
-									requiredMessage="Password é obrigatório" />
-							</div>
-							<br />
-							<p:commandButton update="dialogs:manage-product-content"
-								process="manage-product-content @this" value="Save"
-								actionListener="#{profileBean.save()}" />
-						</p:outputPanel>
-					</p:outputPanel>
-				</p:dialog>
-			</h:form>
-		</div>
-	</p:panel>
+					</h:panelGrid>
+					<p:commandButton value="Save" style="width: 400px; align-content: center;" ajax="false" update="messages; form" action="#{profileBean.save()}" oncomplete="PF('newProfile').hide()"/>
+
+				</p:panel>
+			</p:dialog>
+
+			
+			
+			
+			<p:panel>
+
+				<p:commandButton oncomplete="PF('newProfile').show()" style="background-color: #348a4b;" icon="pi pi-plus" value="Add" id="add" title="Add">
+					<f:setPropertyActionListener value="#{profile}" target="#{profileBean.selectedProfile}" />
+				</p:commandButton>
+
+				<p:tooltip for="add" value="Register a new profile here!"/>
+
+				
+				<p:commandButton id="update" value="Update" update="@parent" style="margin-left: 15rem;"/>
+
+				<p:tooltip for="update" value="If your page didn't update, try this button"/>
+
+			</p:panel>
+
+			
+
+			
+			<p:dataTable id="profileTable" var="profile" value="#{profileBean.findAll()}" paginator="true" rows="10" styleClass="mt-2">
+
+
+				
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Name"/>
+					</f:facet>
+					<h:outputText value="#{profile.name}"/>
+				</p:column>
+
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Profile"/>
+					</f:facet>
+					<h:outputText value="#{profile.profile}"/>
+				</p:column>
+
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Email"/>
+					</f:facet>
+					<h:outputText value="#{profile.email}"/>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</div>
 </h:body>
 </html>

@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 @Table(name="DBE_CP2_TB_PROFILE")
 
@@ -17,7 +19,7 @@ public class Profile {
 	private String name;
 	private String email;
 	private String profile;
-	private String password;
+	private String passwordHash;
 	
 	public long getId() {
 		return id;
@@ -43,11 +45,14 @@ public class Profile {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
+	public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordHash = passwordEncoder.encode(password);
+    }
 	
 }

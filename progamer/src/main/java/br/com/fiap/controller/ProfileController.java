@@ -58,7 +58,7 @@ public class ProfileController {
 		Profile profile = new Profile();
 		try {
 			if (profileRequest.getName() == null || profileRequest.getProfile() == null || profileRequest.getEmail() == null
-					|| profileRequest.getPassword() == null) {
+					|| profileRequest.getPasswordHash() == null) {
 
 				System.out.println("===== ERROR =====");
 				System.out.println("Insufficient parameters");
@@ -70,7 +70,7 @@ public class ProfileController {
 			profile.setName(profileRequest.getName());
 			profile.setProfile(profileRequest.getProfile());
 			profile.setEmail(profileRequest.getEmail());
-			profile.setPassword(profileRequest.getPassword());
+			profile.setPasswordHash(profileRequest.getPasswordHash());
 
 			profileDao.saveProfile(profile);
 
@@ -94,7 +94,7 @@ public class ProfileController {
 			profile.setName(profileRequest.getName());
 			profile.setProfile(profileRequest.getProfile());
 			profile.setEmail(profileRequest.getEmail());
-			profile.setPassword(profileRequest.getPassword());
+			profile.setPasswordHash(profileRequest.getPasswordHash());
 
 			profileDao.saveProfile(profile);
 
@@ -122,8 +122,8 @@ public class ProfileController {
 				profile.setProfile(profileRequest.getProfile());
 			if (profileRequest.getEmail() != null)
 				profile.setEmail(profileRequest.getEmail());
-			if (profileRequest.getPassword() != null)
-				profile.setPassword(profileRequest.getPassword());
+			if (profileRequest.getPasswordHash() != null)
+				profile.setPasswordHash(profileRequest.getPasswordHash());
 
 			profileDao.saveProfile(profile);
 
