@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"\",\r\n  \"name\": \"\",\r\n  \"password\": \"\",\r\n  \"profile\": \"\"\r\n}",
+					"raw": "{\r\n  \"email\": \"\",\r\n  \"name\": \"\",\r\n  \"passwordHash\": \"\",\r\n  \"profile\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -58,7 +58,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Profile By Id",
+			"name": "Get Profile By Id (Inform ID on URL)",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -80,13 +80,13 @@
 			"response": []
 		},
 		{
-			"name": "Profile Total Update",
+			"name": "Profile Total Update (Inform ID on URL)",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"\",\r\n  \"name\": \"\",\r\n  \"password\": \"\",\r\n  \"profile\": \"\"\r\n}",
+					"raw": "{\r\n  \"email\": \"\",\r\n  \"name\": \"\",\r\n  \"passwordHash\": \"\",\r\n  \"profile\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,13 +111,13 @@
 			"response": []
 		},
 		{
-			"name": "Profile Partial Update",
+			"name": "Profile Partial Update (Inform ID on URL)",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "// Only inform the necessary fields. Delete the others.\r\n\r\n{\r\n  \"email\": \"\",\r\n  \"name\": \"\",\r\n  \"password\": \"\",\r\n  \"profile\": \"\"\r\n}",
+					"raw": "// Only inform the necessary fields. Delete the others.\r\n\r\n{\r\n  \"email\": \"\",\r\n  \"name\": \"\",\r\n  \"passwordHash\": \"\",\r\n  \"profile\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,7 +142,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Profile",
+			"name": "Delete Profile (Inform ID on URL)",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -164,7 +164,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Profile with JPA",
+			"name": "Delete Profile with JPA (Inform ID on URL)",
 			"request": {
 				"method": "DELETE",
 				"header": [],
