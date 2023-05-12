@@ -1,5 +1,6 @@
 package br.com.fiap.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,26 +37,41 @@ public class ProfileController {
 	@GetMapping()
 	@ApiOperation("Get all profiles")
 	public ResponseEntity<List<Profile>> index() {
-		return ResponseEntity.ok(profileDao.findAllProfiles());
+
+		try {
+			List<Profile> profiles = profileDao.findAllProfiles();
+			if (profiles.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+			}
+			return ResponseEntity.ok(profiles);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
 	}
 
 	@GetMapping("{id}")
 	@ApiOperation("Get profile by id")
 	public ResponseEntity<Profile> show(@PathVariable("id") long id) {
-
-		Profile profile = profileDao.searchById(id);
-
-		if (profile == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		try {
+			Profile profile = profileDao.searchById(id);
+			if (profile == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+			return ResponseEntity.ok(profile);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-
-		return ResponseEntity.ok(profile);
 	}
 
 	@PostMapping()
 	@ApiOperation("Create new profile")
 	public ResponseEntity<String> create(@RequestBody Profile profileRequest) {
+
 		Profile profile = new Profile();
+
 		try {
 			if (profileRequest.getName() == null || profileRequest.getProfile() == null || profileRequest.getEmail() == null
 					|| profileRequest.getPasswordHash() == null) {
